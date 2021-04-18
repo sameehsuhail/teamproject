@@ -1,7 +1,9 @@
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 
@@ -12,6 +14,13 @@ public class Data_applications {
 
 	//throws FileNotFoundException 
 	
+	public static String ID_arr [] = new String[200]  ;
+	public static String Last_name_arr [] = new String[200]  ;
+	public static String First_name_arr [] = new String[200]  ;
+	public static String Vac_type_arr [] = new String[200]  ;
+	public static String Vac_date_arr [] = new String[200]  ;		
+	public static String Vac_loc_arr [] = new String[200]  ;	
+	public static String Everything [] = new String[200]  ;	
 	
 
 
@@ -23,19 +32,15 @@ public static void main (String[] args)   {
 	
 	load_data(path);
 	
-		
-		add_data();
+	//add_data();
+	
+	save_data();
 				
 		
 		
 		
 	} 
 	
-	
-	
-	
-	
-
 
 public static void add_data()  {
 	BufferedReader read= new BufferedReader ( new InputStreamReader(System.in));
@@ -48,8 +53,18 @@ public static void add_data()  {
 		String Vaccine_date= read.readLine();
 		String Vaccine_location= read.readLine();
 		
-		System.out.println(Last_Name);
+		int curr_arr_size=0;
+		int i=0;
+		while(ID_arr[i]!=null) {
+			curr_arr_size++;
+		}
 		
+		ID_arr [curr_arr_size]=ID;
+		Last_name_arr [curr_arr_size]=Last_Name;
+		First_name_arr [curr_arr_size]=First_Name;		
+		Vac_type_arr [curr_arr_size]=Vaccine_type;
+		Vac_date_arr[curr_arr_size]=Vaccine_date;
+		Vac_loc_arr [curr_arr_size]=Vaccine_location;
 	}
 	catch (IOException e1) {
 		e1.printStackTrace();
@@ -64,12 +79,6 @@ public static void load_data(String path)  {
 	
 	String line="";
 	String [] values ;
-	String ID_arr [] = new String[200]  ;
-	String Last_name_arr [] = new String[200]  ;
-	String First_name_arr [] = new String[200]  ;
-	String Vac_type_arr [] = new String[200]  ;
-	String Vac_date_arr [] = new String[200]  ;		
-	String Vac_loc_arr [] = new String[200]  ;	
 	
 	int counter=0;
 	
@@ -94,8 +103,9 @@ public static void load_data(String path)  {
 			counter++;
 			
 		}
-		for(int i=0;i<200;i++)
-			System.out.println(Last_name_arr[i]);
+		
+		
+		
 }
 	
 	catch (FileNotFoundException e) {
@@ -107,7 +117,60 @@ public static void load_data(String path)  {
 
 }
 
+
+
+
+
+
+public static void save_data()  {
+	
+	System.out.println("Hello world");
+
+	int curr_arr_size=0,i=0;
+	while(ID_arr[i]!=null) {
+		curr_arr_size++;
+	}
+	
+	int count=0;
+	
+	for(int j=0;j<curr_arr_size;j++) {
+		
+			Everything[count]=ID_arr[j];
+			Everything[count++]=Last_name_arr[j];
+			Everything[count++]=First_name_arr[j];
+			Everything[count++]=Vac_type_arr[j];
+			Everything[count++]=Vac_date_arr [j];
+			Everything[count++]=Vac_loc_arr[j];
+			System.out.println(Everything[j]);
+
+		count++;
+	}
+	
+	for(int k=0;k<count;k++) {
+		System.out.println(Everything[k]);
+	}
+	
+	
+	
+	
+	BufferedWriter br = new BufferedWriter(new FileWriter("myfile.csv"));
+	StringBuilder sb = new StringBuilder();
+
+	// Append strings from array
+	for (String element : array) {
+	 sb.append(element);
+	 sb.append(",");
+	}
+
+	br.write(sb.toString());
+	br.close();
+	
+	
 }
+
+}
+
+
 
 
 

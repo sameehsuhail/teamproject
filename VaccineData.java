@@ -110,15 +110,16 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 			grid.add(vacTypeField, 2, 6);
 			
 			grid.add(vacLocationField, 2, 7);
-		});
-		
-		saveButton.setOnAction((event) ->{
+			
 			dateField.clear();
 			idField.clear();
 			lastNameField.clear();
 			firstNameField.clear();
 			vacTypeField.clear();
 			vacLocationField.clear();
+		});
+		
+		saveButton.setOnAction((event) ->{
 			
 		});
 			

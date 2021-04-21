@@ -22,7 +22,7 @@ public class Data_applications {
 	public static void main(String[] args) {
 		// System.out.println("Hello world");
 
-		String path = "/data/TeamProjectRandomData - 10People.csv";
+		String path = "data/TeamProjectRandomData - 10People.csv";
 
 		load_data(path);
 

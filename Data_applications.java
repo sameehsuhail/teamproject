@@ -1,3 +1,5 @@
+package application;
+
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -13,7 +15,7 @@ import java.util.stream.Collectors;
 
 
 
-
+    
 public class Data_applications {
 
 	//throws FileNotFoundException 
@@ -35,21 +37,21 @@ public class Data_applications {
 	
 
 public static void main (String[] args) throws IOException   {
-	//System.out.println("Hello world");
+	
 	
 	
 	String path="/Users/kpnew/Downloads/TeamProjectRandomData - 10People.csv";
 	
 	load_data(path);
-	save_new();
 	
-	add_data_get();
+	
+	//add_data_get();
 	
 	add_data();
 	
-	//save_data();
+	save_data();
 	
-	save_new();
+	
 	
 	
 	int curr_arr_size=0;
@@ -67,7 +69,7 @@ public static void main (String[] args) throws IOException   {
 		
 	} 
 	
-
+/*
 public static void add_data_get() throws IOException  {
 	BufferedReader read= new BufferedReader ( new InputStreamReader(System.in));
 	
@@ -101,12 +103,15 @@ public static void add_data_get() throws IOException  {
 		for(int h=0;h<200;h++)
 			System.out.println(Last_name_arr[h]);
 	
-	*/
+	
 	
 	
 }
 
-public static void add_data() throws FileNotFoundException {
+*/
+
+
+public static void add_data()  {
 	
 	
 	int curr_arr_size=0;
@@ -178,64 +183,7 @@ public static void load_data(String path)  {
 
 
 
-
-
-public static void save_data() throws IOException {
-	
-	System.out.println("Hello world");
-
-	int curr_arr_size=0,i=0;
-	while(ID_arr[i]!=null) {
-		curr_arr_size++;
-		i++;
-	}
-	
-	int count=0;
-	ArrayList<String> All= new ArrayList<String>();
-	
-	for(int j=0;j<curr_arr_size;j++) {
-		
-		
-		
-		
-		All.add(ID_arr[j]);
-		All.add(Last_name_arr[j]);
-		All.add(First_name_arr[j]);
-		All.add(Vac_type_arr[j]);
-		All.add(Vac_date_arr [j]);
-		All.add(Vac_loc_arr[j]);
-		
-		All.add("\n");
-}
-	
-	//System.out.println(All);
-	
-	
-	
-	
-	/*
-	  FileWriter writer = new FileWriter("/Users/kpnew/Downloads/sto1.csv");
-	  
-	
-		 String collect = All.stream().collect(Collectors.joining(","));
-		    System.out.println(collect);
-		 	
-	  
-	  
-	  
-	  writer.write(collect);
-
-	   
-	    writer.close();
-	    
-	    
-	
-	*/
-	
-      
-}    
-
-	public static void save_new() {
+	public static void save_data() {
 		
 		
 		int curr_arr_size=0,i=0;

@@ -9,6 +9,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+
+import java.awt.Label;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,12 +32,13 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 		
 		//instance of the other class
 		Data_applications foo= new Data_applications();
-		String path="/Users/shreyas/Downloads/TeamProjectRandomData - 10People.csv";
+		
 		
 		//VBox contains all of the buttons on the left hand side of the scene
 		VBox buttonPane = new VBox();
 	    buttonPane.setSpacing(20);
 	    buttonPane.setPadding(new Insets(10, 0, 10, 0));
+	    
 	    
 	    //The required buttons 
 	    Button aboutButton = new Button("About");
@@ -44,15 +47,17 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 	    Button submitButton = new Button("Submit");
 	    Button saveButton = new Button("Save Data");
 	    Button visualizeButton = new Button("Visualize Data");
+	    Button pathButton = new Button("File Path");
 	    
 	    aboutButton.setMaxWidth(Double.MAX_VALUE);
 	    loadButton.setMaxWidth(Double.MAX_VALUE);
 	    addButton.setMaxWidth(Double.MAX_VALUE);
 	    saveButton.setMaxWidth(Double.MAX_VALUE);
 	    visualizeButton.setMaxWidth(Double.MAX_VALUE);
+	    pathButton.setMaxWidth(Double.MAX_VALUE);
 	    
 		buttonPane.getChildren().addAll(aboutButton, loadButton, addButton, 
-		saveButton, visualizeButton);
+		saveButton, visualizeButton,pathButton);
 		
 		//GridPane contains the actions, such as text display and text fields after button click
 		grid.setPadding(new Insets(10, 10, 10, 10)); 
@@ -62,6 +67,8 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 		
 		this.setLeft(buttonPane);
 		this.setCenter(grid);
+		
+		 
 		
 		aboutButton.setOnAction((event) -> {
 			grid.getChildren().clear();
@@ -91,6 +98,8 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 		TextField firstNameField = new TextField();
 		TextField vacTypeField = new TextField();
 		TextField vacLocationField = new TextField();
+		TextField pathField = new TextField();
+		Text error = new Text("Please enter the right data");
 		
 		addButton.setOnAction((event) -> {
 			grid.getChildren().clear();
@@ -134,26 +143,17 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 			grid.add(vacLocationField, 2, 7);
 			vacLocationField.setPromptText("Enter your vacc location");
 			
+			
+			
 			grid.add(submitButton, 2, 9);
 						
-			int check = 0;
+		        foo.check = 0;
 			
 			//enter check date
 			foo.Vaccine_date = dateField.getText();
 			char[] s = foo.Vaccine_date.toCharArray();
 			
-			for(int i =0;i<s.length;i++) {
-				
-				if(i == 2 || i == 5) {
-					i++;
-				}
-				char chk = s[i];
-				if(!(chk >= '0' && chk <='9')) {
-					check = 1;
-				}
-				
-				
-			}
+			
 			
 			//enter check id
 			foo.ID = idField.getText();
@@ -163,7 +163,7 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 		            && foo.ID.charAt(i) <= '9') {
 		        }
 		        else {
-		            check = 1;
+		            foo.check = 1;
 		        }
 		    }
 		     
@@ -175,7 +175,7 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 			for(int i =0;i<foo.Last_Name.length();i++) {
 				char chk1 = s1[i];
 				if(!(chk1 >= 'a' && chk1 <='z')) {
-					check = 1;
+					foo.check = 1;
 				}
 			}
 		 
@@ -187,7 +187,7 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 			for(int i =0;i<foo.First_Name.length();i++) {
 				char chk2 = s2[i];
 				if(!(chk2 >= 'a' && chk2 <='z')) {
-					check = 1;
+					foo.check = 1;
 				}
 			}
 		 
@@ -198,7 +198,7 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 			for(int i =0;i<foo.Vaccine_type.length();i++) {
 				char chk3 = s3[i];
 				if(!(chk3 >= 'a' && chk3 <='z')) {
-					check = 1;
+					foo.check = 1;
 				}
 			}
 		 
@@ -208,8 +208,12 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 			for(int i =0;i<foo.Vaccine_location.length();i++) {
 				char chk4 = s4[i];
 				if(!(chk4 >= 'a' && chk4 <='z')) {
-					check = 1;
+					foo.check = 1;
 				}
+			}
+			
+			if(foo.check == 1) {
+				grid.add(error,2,10);
 			}
 		 			
 			dateField.clear();
@@ -220,17 +224,37 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 			vacLocationField.clear();
 		});
 		
+		
+		
+		pathButton.setOnAction((event) ->{
+			grid.getChildren().clear();
+			
+			Text filepath = new Text("File Path: ");
+			grid.add(filepath, 0, 2);
+			grid.add(pathField, 2, 2);
+			pathField.setPromptText("Please enter the file path");
+			foo.path = pathField.getText();		
+			
+			pathField.clear();
+			
+			
+		});
+		
 		saveButton.setOnAction((event) ->{
 			foo.save_data();
 		});
 		
 		submitButton.setOnAction((event) ->{
-			foo.add_data();
+			foo.add_data(foo.check);
 		});
 		
 		loadButton.setOnAction((event) ->{
-			foo.load_data(path);
+			foo.load_data(foo.path);
+			
+			
+			
 		});
+		
 		
 		
 		

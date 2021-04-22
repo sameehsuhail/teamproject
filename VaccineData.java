@@ -1,7 +1,6 @@
 package application;  
 
- import application.Data_applications;
-
+import application.Data_applications;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
@@ -10,14 +9,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.function.UnaryOperator;
 import java.util.List;
 import javax.swing.event.ChangeListener;
-
 import javafx.event.*;
 import javafx.geometry.Insets;
 import javafx.scene.text.*;
@@ -32,8 +29,8 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 		
 		
 		//instance of the other class
-		 Data_applications foo= new Data_applications();
-		 String path="/Users/kpnew/Downloads/TeamProjectRandomData - 10People.csv";
+		Data_applications foo= new Data_applications();
+		String path="/Users/shreyas/Downloads/TeamProjectRandomData - 10People.csv";
 		
 		//VBox contains all of the buttons on the left hand side of the scene
 		VBox buttonPane = new VBox();
@@ -44,6 +41,7 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 	    Button aboutButton = new Button("About");
 	    Button loadButton = new Button("Load Data");
 	    Button addButton = new Button("Add Data");
+	    Button submitButton = new Button("Submit");
 	    Button saveButton = new Button("Save Data");
 	    Button visualizeButton = new Button("Visualize Data");
 	    
@@ -94,8 +92,6 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 		TextField vacTypeField = new TextField();
 		TextField vacLocationField = new TextField();
 		
-		
-		
 		addButton.setOnAction((event) -> {
 			grid.getChildren().clear();
 			
@@ -137,15 +133,14 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 			
 			grid.add(vacLocationField, 2, 7);
 			vacLocationField.setPromptText("Enter your vacc location");
+			
+			grid.add(submitButton, 2, 9);
 						
 			int check = 0;
-			
-			
 			
 			//enter check date
 			foo.Vaccine_date = dateField.getText();
 			char[] s = foo.Vaccine_date.toCharArray();
-			
 			
 			for(int i =0;i<s.length;i++) {
 				
@@ -160,74 +155,62 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 				
 			}
 			
-		
 			//enter check id
 			foo.ID = idField.getText();
 			
-			 for (int i = 0; i < foo.ID.length(); i++) {
-		            if (foo.ID.charAt(i) >= '0'
-		                && foo.ID.charAt(i) <= '9') {
-		            }
-		            else {
-		                check = 1;
-		            }
+			for (int i = 0; i < foo.ID.length(); i++) {
+				if (foo.ID.charAt(i) >= '0'
+		            && foo.ID.charAt(i) <= '9') {
 		        }
+		        else {
+		            check = 1;
+		        }
+		    }
 		     
-			
-				 
 			//enter check lastname
 		
-		 foo.Last_Name = lastNameField.getText();
-		 foo.Last_Name.toLowerCase();
-		 char[] s1 = foo.Last_Name.toCharArray();
-		 for(int i =0;i<foo.Last_Name.length();i++) {
-			 char chk1 = s1[i];
-			 if(!(chk1 >= 'a' && chk1 <='z')) {
-				 check = 1;
-			 }
-		 }
-		 
+			foo.Last_Name = lastNameField.getText();
+			foo.Last_Name.toLowerCase();
+			char[] s1 = foo.Last_Name.toCharArray();
+			for(int i =0;i<foo.Last_Name.length();i++) {
+				char chk1 = s1[i];
+				if(!(chk1 >= 'a' && chk1 <='z')) {
+					check = 1;
+				}
+			}
 		 
 		//enter check firstname
 		 
-		 
-		 foo.First_Name = firstNameField.getText();
-		 foo.First_Name.toLowerCase();
-		 char[] s2 = foo.First_Name.toCharArray();
-		 for(int i =0;i<foo.First_Name.length();i++) {
-			 char chk2 = s2[i];
-			 if(!(chk2 >= 'a' && chk2 <='z')) {
-				 check = 1;
-			 }
-		 }
-		 
-		 
-		 foo.Vaccine_type = vacTypeField.getText();
-		 foo.Vaccine_type.toLowerCase();
-		 char[] s3 = foo.Vaccine_type.toCharArray();
-		 for(int i =0;i<foo.Vaccine_type.length();i++) {
-			 char chk3 = s3[i];
-			 if(!(chk3 >= 'a' && chk3 <='z')) {
-				 check = 1;
-			 }
-		 }
+			foo.First_Name = firstNameField.getText();
+			foo.First_Name.toLowerCase();
+			char[] s2 = foo.First_Name.toCharArray();
+			for(int i =0;i<foo.First_Name.length();i++) {
+				char chk2 = s2[i];
+				if(!(chk2 >= 'a' && chk2 <='z')) {
+					check = 1;
+				}
+			}
 		 
 		 
+			foo.Vaccine_type = vacTypeField.getText();
+			foo.Vaccine_type.toLowerCase();
+			char[] s3 = foo.Vaccine_type.toCharArray();
+			for(int i =0;i<foo.Vaccine_type.length();i++) {
+				char chk3 = s3[i];
+				if(!(chk3 >= 'a' && chk3 <='z')) {
+					check = 1;
+				}
+			}
 		 
-		 
-		 
-		 foo.Vaccine_location = vacLocationField.getText();
-		 foo.Vaccine_location.toLowerCase();
-		 char[] s4 = foo.Vaccine_location.toCharArray();
-		 for(int i =0;i<foo.Vaccine_location.length();i++) {
-			 char chk4 = s4[i];
-			 if(!(chk4 >= 'a' && chk4 <='z')) {
-				 check = 1;
-			 }
-		 }
-		 
-		 
-		 
+			foo.Vaccine_location = vacLocationField.getText();
+			foo.Vaccine_location.toLowerCase();
+			char[] s4 = foo.Vaccine_location.toCharArray();
+			for(int i =0;i<foo.Vaccine_location.length();i++) {
+				char chk4 = s4[i];
+				if(!(chk4 >= 'a' && chk4 <='z')) {
+					check = 1;
+				}
+			}
 		 			
 			dateField.clear();
 			idField.clear();
@@ -241,7 +224,7 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 			foo.save_data();
 		});
 		
-		addButton.setOnAction((event) ->{
+		submitButton.setOnAction((event) ->{
 			foo.add_data();
 		});
 		
@@ -249,15 +232,9 @@ public class VaccineData extends BorderPane { //VaccineData class inherits prope
 			foo.load_data(path);
 		});
 		
-		saveButton.setOnAction((event) ->{
-			foo.save_data();
-		});
 		
 		
 			
 	}
 	
 }
-
-
-

@@ -47,7 +47,7 @@ public static void main (String[] args) throws IOException   {
 	
 	//add_data_get();
 	
-	add_data();
+	
 	
 	save_data();
 	
@@ -69,7 +69,7 @@ public static void main (String[] args) throws IOException   {
 		
 	} 
 	
-/*
+
 public static void add_data_get() throws IOException  {
 	BufferedReader read= new BufferedReader ( new InputStreamReader(System.in));
 	
@@ -103,16 +103,18 @@ public static void add_data_get() throws IOException  {
 		for(int h=0;h<200;h++)
 			System.out.println(Last_name_arr[h]);
 	
-	
+	*/
 	
 	
 }
 
-*/
 
 
-public static void add_data()  {
+
+public static void add_data(int check)  {
 	
+	if(check==1)
+		return;
 	
 	int curr_arr_size=0;
 	int i=0;
@@ -122,7 +124,7 @@ public static void add_data()  {
 		i++;
 	}
 	
-	System.out.print("done+++++");
+	//System.out.print("done+++++");
 	ID_arr [curr_arr_size]=ID;
 	Last_name_arr [curr_arr_size]=Last_Name;
 	First_name_arr [curr_arr_size]=First_Name;		
@@ -144,7 +146,6 @@ public static void load_data(String path)  {
 	try {
 		BufferedReader br= new BufferedReader(new FileReader(path));
 		
-		
 		while((line = br.readLine()) != null) {
 			//System.out.println(line);
 			values= line.split(",");
@@ -162,14 +163,21 @@ public static void load_data(String path)  {
 		}
 		
 
-		for(int h=0;h<20;h++)
-			System.out.println(Last_name_arr[h]);
+		for(int j=0;j<200;j++) {
+			if(j==0) {
+				System.out.println(String.format("%30s %25s %10s %25s %10s %25s %10s %25s %10s %25s %10s", ID_arr[j], "|", Last_name_arr[j], "|",First_name_arr[j], "|",Vac_type_arr[j],"|",Vac_date_arr [j],"|",Vac_loc_arr[j]));
+				System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+			}
+			else
+				System.out.println(String.format("%30s %25s %10s %25s %10s %25s %10s %25s %10s %25s %10s", ID_arr[j], "|", Last_name_arr[j], "|",First_name_arr[j], "|",Vac_type_arr[j],"|",Vac_date_arr [j],"|",Vac_loc_arr[j]));
+				
 		
+			
+
 		
+		}
 		
-		
-		
-}
+	}
 	
 	catch (FileNotFoundException e) {
 		e.printStackTrace();
